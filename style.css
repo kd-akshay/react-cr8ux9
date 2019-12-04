@@ -1,0 +1,34 @@
+h1, p {
+  font-family: Lato;
+}
+
+.myContainer{
+    background-color: aliceblue;
+    padding: 10px 20px;
+    text-align: center;
+    width: 500px;
+    margin: 100px auto auto auto;
+
+    border-radius: 10px;
+
+}
+
+.myContainer p{
+  text-align: center
+}
+
+.headerText{
+  font-size: 21px;
+  color:chocolate;
+  font-weight: 600;
+}
+
+.subHeaderText{
+    font-size: 18px;
+  font-weight: 600;
+}
+
+.detailText{
+ font-size: 16px;
+  font-weight: 500;
+}
