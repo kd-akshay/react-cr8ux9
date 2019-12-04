@@ -27,6 +27,8 @@ class App extends Component {
         resArr = [...res.data];
         resArr = resArr.map(ele => {
           ele.isEditable = false;
+          ele.isNameValid=true;
+          ele.isEmailValid=true;
           return ele;
         });
         this.setState({
@@ -56,7 +58,6 @@ class App extends Component {
   };
 
   idChange = (index, ele) => {
-
     let arr = this.state.users;
     arr[index].id = ele.target.value;
     this.setState({
@@ -64,22 +65,46 @@ class App extends Component {
     });
   };
   nameChange = (index, ele) => {
-    let arr = this.state.users;
-    arr[index].name = ele.target.value;
-    this.setState({
-      users: [...arr]
-    });
-  };
-  emailChange = (index, ele) => {
-    let regex = /^[A-Z0-9._-]+@[A-Z0-9]{2,}+.[A-Z]{2,}$/ig;
-    let str=ele.target.value;
+    let regex = /^[A-Z ]+$/i;
+    let str = ele.target.value;
     if (str.match(regex)) {
       let arr = this.state.users;
-      arr[index].email = str;
+      arr[index].name = ele.target.value;
+      arr[index].isNameValid = true;
+      this.setState({
+        users: [...arr]
+      });
+    }else{
+     this.setState
+      let arr = this.state.users;
+      arr[index].isNameValid = false;
+      this.setState({
+        users: [...arr]
+      });
+     
+    }
+  };
+  emailChange = (index, ele) => {
+    let regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/;
+    // let regex = /^[A-Z0-9]$/;
+    let str = ele.target.value;
+    let arr = this.state.users;
+    arr[index].email = str;
+    if (str.match(regex)) {
+
+       arr[index].isEmailValid = true;
+      
+    } else {
+
+      arr[index].isEmailValid = false;
       this.setState({
         users: [...arr]
       });
     }
+
+    this.setState({
+        users: [...arr]
+      });
   };
 
   deleteElement = index => {
@@ -138,6 +163,8 @@ class App extends Component {
                             nameChange={this.nameChange}
                             emailChange={this.emailChange}
                             deleteEle={() => this.deleteElement(index)}
+                            isNameValid={ele.isNameValid}
+                            isEmailValid={ele.isEmailValid}
                           />
                         );
                       })}

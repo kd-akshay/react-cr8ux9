@@ -3,10 +3,7 @@ import { Button } from "react-bootstrap";
 export default class DispData extends Component {
   constructor(){
 
-    this.state={
-      isNameValid:true,
-      isEmailValid:true
-    }
+    
   }
 
   checkValidationNumber(ele) {
@@ -49,6 +46,8 @@ export default class DispData extends Component {
       (ele.keyCode >= 48 && ele.keyCode <= 57) ||
       ele.keyCode == 39 ||
       ele.keyCode == 8 ||
+      ele.keyCode == 189 ||
+      ele.keyCode == 190 ||
       (ele.keyCode >= 96 && ele.keyCode <= 105)
     ) {
       return true;
@@ -59,13 +58,14 @@ export default class DispData extends Component {
   onBlurValidationEmail(ele) {
     // console.log(ele.target.value)
     //let regex = /^[a-zA-Z_\-0-9]+@[a-zA-Z0-9].{2,}+\.[A-Za-z]+$/;
-    // let str=ele.target.value;
-    // if (!regex.test(str)) {
-    //   this.setState({isEmailValid:false})
-    // } else{
-    //   this.setState({isEmailValid:true})
+    let regex = /^[a-zA-Z0-9.\_-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/i;
+    let str=ele.target.value;
+    if (!regex.test(str)) {
+      this.setState({isEmailValid:false})
+    } else{
+      this.setState({isEmailValid:true})
 
-    // }
+    }
   }
   render(props) {
     if (this.props.isEditable) {
@@ -90,7 +90,7 @@ export default class DispData extends Component {
               onBlur={this.onBlurValidationAlpha.bind(this)}
             />
             <br/>
-            {this.state.isNameValid?'':<label>name is not valid</label>}
+            {this.props.isNameValid?'':<label className='errorText'>name you are trying to enter is not valid</label>}
           </td>
           <td>
             <input
@@ -102,7 +102,7 @@ export default class DispData extends Component {
               onBlur={this.onBlurValidationEmail.bind(this)}
             />
             <br/>
-            
+            {this.props.isEmailValid?'':<label className='errorText'>email you are trying to enter is not valid is not valid</label>}
           </td>
           <td>
             <button
