@@ -120,7 +120,7 @@ class App extends Component {
             <Switch>
               <Route
                 path="/"
-                exact
+               exact
                 strict
                 render={() => {
                   return <h3>Loading data</h3>;
@@ -128,9 +128,9 @@ class App extends Component {
               />
               <Route
                 path="/notFound"
-                exact
+            exact
                 strict
-                component={TechDiffComponent}
+                renfder={()=>{return(<TechDiffComponent/>)}}
               />
               <Route
                 path="/data"
