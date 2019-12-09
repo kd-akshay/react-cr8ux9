@@ -36,3 +36,29 @@ h1, p {
 .errorText{
 color:darkred;
 }
+
+.warning{
+  color:orange;
+}
+
+table{
+  margin: 75px auto;
+  width: 1000px;
+}
+
+table td:first-child{
+  text-align: center;
+  width:10%!important;
+}
+table td{
+  width:20%
+}
+
+table td:last-child{
+  text-align: center;
+}
+
+button{
+  width: 75px;
+
+}

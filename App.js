@@ -27,9 +27,9 @@ class App extends Component {
         resArr = [...res.data];
         resArr = resArr.map(ele => {
           ele.isEditable = false;
-          ele.isNameValid=true;
-          ele.isEmailValid=true;
-          ele.isIdValid=true;
+          ele.isNameValid = true;
+          ele.isEmailValid = true;
+          ele.isIdValid = true;
           return ele;
         });
         this.setState({
@@ -51,34 +51,32 @@ class App extends Component {
   };
 
   makeNonEditable = index => {
+    debugger;
     let arr = this.state.users;
-    arr[index].isEditable = false;
-    this.setState({
-      users: [...arr]
-    });
+    // arr[index].isIdValid &&
+    //   arr[index].isEmailValid &&
+    //   arr[index].isNameValid
+    if (arr[index].isEmailValid) {
+      arr[index].isEditable = false;
+      this.setState({
+        users: [...arr]
+      });
+    }
   };
 
   idChange = (index, ele) => {
-     let regex = /^[0-9 ]+$/i;
+    let regex = /^[0-9 ]+$/i;
     let str = ele.target.value;
     let arr = this.state.users;
     arr[index].id = ele.target.value;
     if (str.match(regex)) {
-      
       arr[index].isIdValid = true;
-      
-    }else{
-
+    } else {
       arr[index].isIdValid = false;
-
     }
     this.setState({
-        users: [...arr]
-      });
-
-
-
-
+      users: [...arr]
+    });
   };
   nameChange = (index, ele) => {
     let regex = /^[A-Z ]+$/i;
@@ -86,33 +84,27 @@ class App extends Component {
     let arr = this.state.users;
     arr[index].name = ele.target.value;
     if (str.match(regex)) {
-      
       arr[index].isNameValid = true;
-      
-    }else{
-
+    } else {
       arr[index].isNameValid = false;
-
     }
     this.setState({
-        users: [...arr]
-      });
+      users: [...arr]
+    });
   };
   emailChange = (index, ele) => {
     let regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/;
-    // let regex = /^[A-Z0-9]$/;
     let str = ele.target.value;
     let arr = this.state.users;
     arr[index].email = str;
     if (str.match(regex)) {
-       arr[index].isEmailValid = true;    
+      arr[index].isEmailValid = true;
     } else {
       arr[index].isEmailValid = false;
     }
-
     this.setState({
-        users: [...arr]
-      });
+      users: [...arr]
+    });
   };
 
   deleteElement = index => {
@@ -136,7 +128,7 @@ class App extends Component {
             <Switch>
               <Route
                 path="/"
-               exact
+                exact
                 strict
                 render={() => {
                   return <h3>Loading data</h3>;
@@ -144,9 +136,11 @@ class App extends Component {
               />
               <Route
                 path="/notFound"
-            exact
+                exact
                 strict
-                renfder={()=>{return(<TechDiffComponent/>)}}
+                renfder={() => {
+                  return <TechDiffComponent />;
+                }}
               />
               <Route
                 path="/data"
