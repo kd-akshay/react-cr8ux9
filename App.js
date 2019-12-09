@@ -29,6 +29,7 @@ class App extends Component {
           ele.isEditable = false;
           ele.isNameValid=true;
           ele.isEmailValid=true;
+          ele.isIdValid=true;
           return ele;
         });
         this.setState({
@@ -58,11 +59,26 @@ class App extends Component {
   };
 
   idChange = (index, ele) => {
+     let regex = /^[0-9 ]+$/i;
+    let str = ele.target.value;
     let arr = this.state.users;
     arr[index].id = ele.target.value;
+    if (str.match(regex)) {
+      
+      arr[index].isIdValid = true;
+      
+    }else{
+
+      arr[index].isIdValid = false;
+
+    }
     this.setState({
-      users: [...arr]
-    });
+        users: [...arr]
+      });
+
+
+
+
   };
   nameChange = (index, ele) => {
     let regex = /^[A-Z ]+$/i;
@@ -157,6 +173,7 @@ class App extends Component {
                             deleteEle={() => this.deleteElement(index)}
                             isNameValid={ele.isNameValid}
                             isEmailValid={ele.isEmailValid}
+                            isIdValid={ele.isIdValid}
                           />
                         );
                       })}

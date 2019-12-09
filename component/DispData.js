@@ -7,15 +7,16 @@ export default class DispData extends Component {
   }
 
   checkValidationNumber(ele) {
-    if (
-      (ele.keyCode >= 48 && ele.keyCode <= 57) ||
-      ele.keyCode == 8 ||
-      (ele.keyCode >= 96 && ele.keyCode <= 105)
-    ) {
-      return true;
-    } else {
-      ele.preventDefault();
-    }
+    // if (
+    //   (ele.keyCode==17||ele.keyCode==67)||
+    //   (ele.keyCode >= 48 && ele.keyCode <= 57) ||
+    //   ele.keyCode == 8 ||
+    //   (ele.keyCode >= 96 && ele.keyCode <= 105)
+    // ) {
+    //   return true;
+    // } else {
+    //   ele.preventDefault();
+    // }
   }
   checkValidationAlpha(ele) {
     if (
@@ -56,8 +57,7 @@ export default class DispData extends Component {
     }
   }
   onBlurValidationEmail(ele) {
-    // console.log(ele.target.value)
-    //let regex = /^[a-zA-Z_\-0-9]+@[a-zA-Z0-9].{2,}+\.[A-Za-z]+$/;
+
     let regex = /^[a-zA-Z0-9.\_-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/i;
     let str=ele.target.value;
     if (!regex.test(str)) {
@@ -78,6 +78,8 @@ export default class DispData extends Component {
               onKeyDown={this.checkValidationNumber.bind(this)}
               onChange={this.props.idChange.bind(this, this.props.index)}
             />
+             <br/>
+            {this.props.isIdValid?'':<label className='errorText'>ID you are trying to enter is not valid</label>}
           </td>
 
           <td>
