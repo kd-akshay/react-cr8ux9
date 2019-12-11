@@ -138,8 +138,8 @@ class App extends Component {
                 path="/notFound"
                 exact
                 strict
-                renfder={() => {
-                  return <TechDiffComponent />;
+                render={() => {
+                  return <TechDiffComponent ></TechDiffComponent>;
                 }}
               />
               <Route

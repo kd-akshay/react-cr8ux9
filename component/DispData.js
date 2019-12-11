@@ -119,7 +119,7 @@ export default class DispData extends Component {
               )
             ) : (
               <label className="errorText">
-                email you are trying to enter is not valid is not valid
+                email you are trying to enter is not valid 
               </label>
             )}
           </td>

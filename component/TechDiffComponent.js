@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 export default class TechDiffComponent extends Component {
+
   render() {
     return (
       <div className="myContainer">
