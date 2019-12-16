@@ -62,3 +62,25 @@ button{
   width: 75px;
 
 }
+
+.mySuccessContainer{
+   
+    padding: 10px 20px;
+    text-align: center;
+    width: 500px;
+    margin: 100px auto auto auto;
+
+    border-radius: 10px;
+
+}
+
+.centerButton{
+  display:block;
+  margin: 10px auto;
+}
+
+.loader{
+  height: 100vh;
+  text-align: center;
+  opacity: 1;
+}

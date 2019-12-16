@@ -7,13 +7,20 @@ import axios from "axios";
 import DispData from "./component/DispData";
 import TableComponent from "./component/TableComponent";
 import TechDiffComponent from "./component/TechDiffComponent";
+import SuccessComponent from "./component/SuccessComponent";
+
+import Loader from "./component/Loader"
 
 class App extends Component {
-  constructor() {
+  
+  constructor(this) {
+    
     super();
     this.state = {
-      users: []
+      users: [],
+      loader:false
     };
+   
   }
   componentDidMount() {
     this.getdata();
@@ -35,7 +42,9 @@ class App extends Component {
         this.setState({
           users: [...resArr]
         });
-        window.location.href = "https://react-cr8ux9.stackblitz.io/#/data";
+        //window.history.pushState({page: 1}, 'data', 'https://react-cr8ux9.stackblitz.io/#/data');
+        window.location.assign(window.location.href+'data');
+        //window.location.href = "https://react-cr8ux9.stackblitz.io/#/data";
       })
       .catch(err => {
         console.clear();
@@ -120,66 +129,116 @@ class App extends Component {
   printArray = () => {
     console.table(this.state.users);
   };
+
+  setData = () => {
+    this.setState({loader:true});
+    //window.location.href = "https://react-cr8ux9.stackblitz.io/#/loader";
+    console.clear();
+    console.table(this.state.users);
+    axios({
+      method: "post",
+      url: "https://jsonplaceholder.typicode.com/posts",
+      data: this.state.users
+    }).then(() => {
+      
+      window.location.href = "https://react-cr8ux9.stackblitz.io/#/success";
+    })
+    .catch(()=>{
+      window.location.href = "https://react-cr8ux9.stackblitz.io/#/notFound";
+    });
+     this.setState({loader:false});
+  };
   render() {
+  const loader = this.state.loader;
     return (
-      <div>
         <div>
-          <Router>
-            <Switch>
-              <Route
-                path="/"
-                exact
-                strict
-                render={() => {
-                  return <h3>Loading data</h3>;
-                }}
-              />
-              <Route
-                path="/notFound"
-                exact
-                strict
-                render={() => {
-                  return <TechDiffComponent ></TechDiffComponent>;
-                }}
-              />
-              <Route
-                path="/data"
-                exact
-                strict
-                render={() => {
-                  return (
-                    <TableComponent
-                      headerArray={["Id", "Name", "Email", "Action"]}
-                    >
-                      {this.state.users.map((ele, index) => {
-                        return (
-                          <DispData
-                            name={ele.name}
-                            email={ele.email}
-                            id={ele.id}
-                            index={index}
-                            isEditable={ele.isEditable}
-                            makeEditable={() => this.makeEditable(index)}
-                            makeNonEditable={() => this.makeNonEditable(index)}
-                            idChange={this.idChange}
-                            nameChange={this.nameChange}
-                            emailChange={this.emailChange}
-                            deleteEle={() => this.deleteElement(index)}
-                            isNameValid={ele.isNameValid}
-                            isEmailValid={ele.isEmailValid}
-                            isIdValid={ele.isIdValid}
-                          />
-                        );
-                      })}
-                    </TableComponent>
-                  );
-                }}
-              />
-            </Switch>
-          </Router>
+          <div>
+            <Router basename='/'>
+              <Switch>
+                <Route
+                  path="/"
+                  exact
+                  strict
+                  render={() => {
+                    return <h3>Loading data</h3>;
+                  }}
+                />
+                <Route
+                  path="/loader"
+                  exact
+                  strict
+                  component={Loader}
+                />
+                
+                <Route
+                  path="/notFound"
+                  exact
+                  strict
+                  render={() => {
+                    return <TechDiffComponent />;
+                  }}
+                />
+                <Route
+                  path="/success"
+                  exact
+                  strict
+                  render={() => {
+                    return <SuccessComponent />;
+                  }}
+                />
+                <Route
+                  path="/data"
+                  exact
+                  strict
+                  render={() => {
+                    return (
+                      <>
+                        <TableComponent
+                          headerArray={["Id", "Name", "Email", "Action"]}
+                        >
+                          {this.state.users.map((ele, index) => {
+                            return (
+                              <DispData
+                                name={ele.name}
+                                email={ele.email}
+                                id={ele.id}
+                                index={index}
+                                isEditable={ele.isEditable}
+                                makeEditable={() => this.makeEditable(index)}
+                                makeNonEditable={() =>
+                                  this.makeNonEditable(index)
+                                }
+                                idChange={this.idChange}
+                                nameChange={this.nameChange}
+                                emailChange={this.emailChange}
+                                deleteEle={() => this.deleteElement(index)}
+                                isNameValid={ele.isNameValid}
+                                isEmailValid={ele.isEmailValid}
+                                isIdValid={ele.isIdValid}
+                              />
+                            );
+                          })}
+                        </TableComponent>
+                        <div>
+                          <button
+                            onClick={this.setData}
+                            className="centerButton"
+                          >
+                            Click Me
+                          </button>
+                        </div>
+                      </>
+                    );
+                  }}
+                />
+              </Switch>
+            </Router>
+          </div>
+          {loader}
+          {loader?<Loader/>:''}
         </div>
-      </div>
     );
+    
   }
 }
 
